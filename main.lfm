@@ -1,0 +1,125 @@
+object Form1: TForm1
+  Left = 457
+  Height = 355
+  Top = 250
+  Width = 687
+  Caption = 'Form1'
+  ClientHeight = 355
+  ClientWidth = 687
+  Menu = MainMenu1
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  object Memo1: TMemo
+    Left = 0
+    Height = 355
+    Top = 0
+    Width = 687
+    Align = alClient
+    BorderStyle = bsNone
+    Font.CharSet = ANSI_CHARSET
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Lines.Strings = (
+      'Memo1'
+    )
+    ParentFont = False
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    WantTabs = True
+    OnChange = Memo1Change
+  end
+  object MainMenu1: TMainMenu
+    Left = 96
+    Top = 64
+    object MenuItemFile: TMenuItem
+      Caption = '&File'
+      object MenuFileNew: TMenuItem
+        Caption = '&New'
+        ShortCut = 16462
+        OnClick = MenuFileNewClick
+      end
+      object MenuFileOpen: TMenuItem
+        Caption = '&Open...'
+        ShortCut = 16463
+        OnClick = MenuFileOpenClick
+      end
+      object MenuFileSave: TMenuItem
+        Caption = '&Save'
+        ShortCut = 16467
+        OnClick = MenuFileSaveClick
+      end
+      object MenuFileSaveAs: TMenuItem
+        Caption = 'Save &As...'
+        ShortCut = 49235
+        OnClick = MenuFileSaveAsClick
+      end
+      object Separator1: TMenuItem
+        Caption = '-'
+      end
+      object MenuFileExit: TMenuItem
+        Caption = 'E&xit'
+        OnClick = MenuFileExitClick
+      end
+    end
+    object MenuView: TMenuItem
+      Caption = '&View'
+      object MenuViewFont: TMenuItem
+        Caption = '&Font...'
+        OnClick = MenuViewFontClick
+      end
+      object MenuViewWordWrap: TMenuItem
+        Caption = '&Word Wrap'
+        Checked = True
+        OnClick = MenuViewWordWrapClick
+      end
+      object MenuViewDarkTheme: TMenuItem
+        Caption = '&Dark Theme'
+        OnClick = MenuViewDarkThemeClick
+      end
+    end
+    object MenuItemSearch: TMenuItem
+      Caption = '&Search'
+      object MenuSearchFind: TMenuItem
+        Caption = '&Find'
+        ShortCut = 16454
+        OnClick = MenuSearchFindClick
+      end
+      object MenuSearchFindNext: TMenuItem
+        Caption = 'Find &Next'
+        ShortCut = 114
+        OnClick = MenuSearchFindNextClick
+      end
+    end
+    object MenuHelp: TMenuItem
+      Caption = '&Help'
+      object MenuHelpAbout: TMenuItem
+        Caption = '&About...'
+        OnClick = MenuHelpAboutClick
+      end
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '.txt'
+    Filter = 'Text files (.txt)|*.txt|All files (.)|*.*'
+    Left = 152
+    Top = 96
+  end
+  object OpenDialog1: TOpenDialog
+    DefaultExt = '.txt'
+    Left = 208
+    Top = 137
+  end
+  object FindDialog1: TFindDialog
+    Options = [frDown, frHideWholeWord, frHideUpDown, frHideEntireScope]
+    OnFind = FindDialog1Find
+    Left = 372
+    Top = 158
+  end
+  object FontDialog1: TFontDialog
+    MinFontSize = 0
+    MaxFontSize = 0
+    Left = 362
+    Top = 73
+  end
+end

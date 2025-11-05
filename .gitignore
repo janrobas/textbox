@@ -1,1 +1,4 @@
 *.exe
+lib/
+backup/
+settings.ini

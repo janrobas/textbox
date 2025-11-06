@@ -22,6 +22,7 @@ type
     Memo1: TMemo;
     MenuHelp: TMenuItem;
     MenuHelpAbout: TMenuItem;
+    MenuHelpSelectionInfo: TMenuItem;
     MenuViewDarkTheme: TMenuItem;
     MenuViewWordWrap: TMenuItem;
     MenuViewFont: TMenuItem;
@@ -48,6 +49,7 @@ type
     procedure MenuFileSaveAsClick(Sender: TObject);
     procedure MenuFileSaveClick(Sender: TObject);
     procedure MenuHelpAboutClick(Sender: TObject);
+    procedure MenuHelpSelectionInfoClick(Sender: TObject);
     procedure MenuViewDarkThemeClick(Sender: TObject);
     procedure MenuViewWordWrapClick(Sender: TObject);
     procedure MenuViewFontClick(Sender: TObject);
@@ -116,6 +118,11 @@ begin
   ShowMessage('Textbox.' + sLineBreak + sLineBreak + 'https://github.com/janrobas/textbox');
 end;
 
+procedure TForm1.MenuHelpSelectionInfoClick(Sender: TObject);
+begin
+  ShowMessage('Position: ' + IntToStr(Memo1.SelStart) + sLineBreak + 'Selected chars: ' + IntToStr(Memo1.SelLength))
+end;
+
 
 procedure TForm1.MenuViewDarkThemeClick(Sender: TObject);
 begin
@@ -173,47 +180,43 @@ begin
      FileOpen(ParamStr(1))
 end;
 
-// TODO: this does not work with čžš yet...
 procedure TForm1.FindDialog1Find(Sender: TObject);
 var
   StartPos, FoundPos: Integer;
+  KeepSearching: Boolean;
   SearchText, MemoText: string;
 begin
   SearchText := FindDialog1.FindText;
   if SearchText = '' then Exit;
 
   MemoText := Memo1.Text;
-
   StartPos := Memo1.SelStart + Memo1.SelLength + 1;
+  KeepSearching := True;
 
-  if frMatchCase in FindDialog1.Options then
-    FoundPos := Pos(SearchText, Copy(MemoText, StartPos, MaxInt))
-  else
-    FoundPos := Pos(UTF8LowerCase(SearchText), UTF8LowerCase(Copy(MemoText, StartPos, MaxInt)));
-
-  if FoundPos > 0 then
+  while KeepSearching do
   begin
-    FoundPos := FoundPos + StartPos - 1;
-    Memo1.SelStart := FoundPos - 1;
-    Memo1.SelLength := Length(SearchText);
-    Memo1.SetFocus;
-  end
-  else
-  begin
-    // wrap
     if frMatchCase in FindDialog1.Options then
-      FoundPos := Pos(SearchText, MemoText)
+      FoundPos := UTF8Pos(SearchText, MemoText, StartPos)
     else
-      FoundPos := Pos(UTF8LowerCase(SearchText), UTF8LowerCase(MemoText));
+      FoundPos := UTF8Pos(UTF8LowerCase(SearchText), UTF8LowerCase(MemoText), StartPos);
 
     if FoundPos > 0 then
     begin
       Memo1.SelStart := FoundPos - 1;
       Memo1.SelLength := Length(SearchText);
       Memo1.SetFocus;
+      KeepSearching := False
+    end
+    else if StartPos > 0 then
+    begin
+      // keep searching
+      StartPos := 1
     end
     else
-      ShowMessage('Text not found: ' + SearchText);
+    begin
+      ShowMessage('Text not found');   
+      KeepSearching := False
+    end;
   end;
 end;
 

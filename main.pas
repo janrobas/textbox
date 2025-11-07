@@ -283,7 +283,21 @@ begin
 end;
 
 procedure TForm1.FileOpen(FileName: string);
-begin          
+var
+  Response: TModalResult;
+begin
+    if FFileModified then
+    begin
+      Response := MessageDlg('The document has been modified.' + sLineBreak +
+                            'Do you want to save your changes?',
+                          mtConfirmation, [mbYes, mbNo, mbCancel], 0);
+
+      if Response = mrCancel then
+        exit
+      else if Response = mrYes then
+        MenuFileSaveClick(Self)
+    end;
+
     Memo1.Lines.LoadFromFile(FileName, TEncoding.UTF8);
     FCurrentFileName := FileName;
     FFileModified := False;

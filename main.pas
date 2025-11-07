@@ -347,20 +347,24 @@ var
   Ini: TIniFile;
   IniPath: string;
   FontStyle: TFontStyles;
+  NewFont: TFont;
 begin
   IniPath := ExtractFilePath(ParamStr(0)) + 'settings.ini';
   Ini := TIniFile.Create(IniPath);
   try
-    // font
-    Memo1.Font.Name := Ini.ReadString('Font', 'Name', 'Courier New');
-    Memo1.Font.Size := Ini.ReadInteger('Font', 'Size', 10);
+    NewFont := TFont.Create;
+
+    NewFont.Name := Ini.ReadString('Font', 'Name', 'Courier New');
+    NewFont.Size := Ini.ReadInteger('Font', 'Size', 10);
 
     FontStyle := [];
     if Ini.ReadBool('Font', 'Bold', False) then
       Include(FontStyle, fsBold);
     if Ini.ReadBool('Font', 'Italic', False) then
       Include(FontStyle, fsItalic);
-    Memo1.Font.Style := FontStyle;
+    NewFont.Style := FontStyle;
+
+    Memo1.Font.Assign(NewFont);
 
     Top := Ini.ReadInteger('Window', 'Top', Top);
     Left := Ini.ReadInteger('Window', 'Left', Left);
@@ -373,8 +377,10 @@ begin
     MenuViewWordWrap.Checked := Ini.ReadBool('Options', 'WordWrap', False);
     Memo1.WordWrap := MenuViewWordWrap.Checked;
     MenuViewDarkTheme.Checked := Ini.ReadBool('Options', 'DarkMode', False);
-    SetTheme
+    SetTheme;
+    Memo1.Refresh;
   finally
+    NewFont.Free;
     Ini.Free;
   end;
 end;

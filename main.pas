@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, StdCtrls,
-  SynEdit, SynCompletion, RTTICtrls, StrUtils, IniFiles, LazUTF8;
+  SynEdit, SynCompletion, RTTICtrls, IniFiles, LazUTF8;
 
 const
   APP_NAME = 'Textbox';
@@ -192,6 +192,7 @@ var
   StartPos, FoundPos: Integer;
   KeepSearching: Boolean;
   SearchText, MemoText: string;
+  SearchIteration: Integer;
 begin
   SearchText := FindDialog1.FindText;
   if SearchText = '' then Exit;
@@ -199,9 +200,12 @@ begin
   MemoText := Memo1.Text;
   StartPos := Memo1.SelStart + Memo1.SelLength + 1;
   KeepSearching := True;
+  SearchIteration := 0;
 
   while KeepSearching do
   begin
+    SearchIteration := SearchIteration + 1;
+
     if frMatchCase in FindDialog1.Options then
       FoundPos := UTF8Pos(SearchText, MemoText, StartPos)
     else
@@ -214,14 +218,14 @@ begin
       Memo1.SetFocus;
       KeepSearching := False
     end
-    else if StartPos > 0 then
+    else if (StartPos > 0) and (SearchIteration < 2) then
     begin
       // keep searching
       StartPos := 1
     end
     else
     begin
-      ShowMessage('Text not found');   
+      ShowMessage('Text not found.');   
       KeepSearching := False
     end;
   end;

@@ -135,8 +135,8 @@ procedure TForm1.SetTheme();
 begin
   if MenuViewDarkTheme.Checked then
   begin
-    Memo1.Color := clBlack;
-    Memo1.Font.Color := TColor($DDDDDD);
+    Memo1.Color := TColor($2A2A2A);
+    Memo1.Font.Color := clWhite;
   end
   else
   begin
@@ -144,7 +144,8 @@ begin
     Memo1.Font.Color := clBlack;
   end;
 
-  //Memo1.Invalidate;
+  Color := Memo1.Color;
+  Memo1.Refresh;
 end;
 
 procedure TForm1.MenuViewWordWrapClick(Sender: TObject);

@@ -4,25 +4,28 @@ object Form1: TForm1
   Top = 250
   Width = 687
   AllowDropFiles = True
+  BorderWidth = 2
   Caption = 'Form1'
   ClientHeight = 355
   ClientWidth = 687
   Menu = MainMenu1
+  Visible = True
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
   object Memo1: TMemo
-    Left = 0
-    Height = 355
-    Top = 0
-    Width = 687
+    Left = 2
+    Height = 351
+    Top = 2
+    Width = 683
     Align = alClient
     BorderStyle = bsNone
     Font.CharSet = 4
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     ParentFont = False
+    ParentShowHint = False
     ScrollBars = ssAutoBoth
     TabOrder = 0
     WantTabs = True
@@ -104,7 +107,7 @@ object Form1: TForm1
   end
   object SaveDialog1: TSaveDialog
     DefaultExt = '.txt'
-    Filter = 'Text files (.txt)|*.txt|All files (.)|*.*'
+    Filter = 'All supported plain text files (*.txt;*.md;*.log;*.ini;*.conf;*.cfg;*.config;*.csv;*.json;*.xml;*.ps1;*.bat;*.sh;*.html;*.css;*.js)|*.txt;*.md;*.log;*.ini;*.conf;*.cfg;*.config;*.csv;*.json;*.xml;*.ps1;*.bat;*.sh;*.html;*.css;*.js|Unstructured text (*.txt;*.md;*.log;*.nfo;*.rst)|*.txt;*.md;*.log;*.nfo;*.rst|Configuration files (*.ini;*.conf;*.cfg;*.config;*.inf)|*.ini;*.conf;*.cfg;*.config;*.inf|Data formats (*.csv;*.json;*.xml;*.yaml;*.yml)|*.csv;*.json;*.xml;*.yaml;*.yml|Scripts (*.ps1;*.bat;*.cmd;*.sh;*.bash;*.vbs)|*.ps1;*.bat;*.cmd;*.sh;*.bash;*.vbs|Web files (*.html;*.htm;*.css;*.js;*.ts;*.php;*.asp)|*.html;*.htm;*.css;*.js;*.ts;*.php;*.asp|All files (*.*)|*.*'
     Left = 152
     Top = 96
   end

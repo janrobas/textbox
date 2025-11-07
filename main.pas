@@ -43,6 +43,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
+    procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure Memo1Change(Sender: TObject);
     procedure MenuFileExitClick(Sender: TObject);
     procedure MenuFileNewClick(Sender: TObject);
@@ -178,6 +179,12 @@ begin
 
   if (ParamCount > 0) and FileExists(ParamStr(1)) then
      FileOpen(ParamStr(1))
+end;
+
+procedure TForm1.FormDropFiles(Sender: TObject; const FileNames: array of string
+  );
+begin
+  FileOpen(FileNames[0]);
 end;
 
 procedure TForm1.FindDialog1Find(Sender: TObject);

@@ -3,6 +3,7 @@ object Form1: TForm1
   Height = 355
   Top = 250
   Width = 687
+  AllowDropFiles = True
   Caption = 'Form1'
   ClientHeight = 355
   ClientWidth = 687
@@ -10,6 +11,7 @@ object Form1: TForm1
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnDropFiles = FormDropFiles
   object Memo1: TMemo
     Left = 0
     Height = 355
